@@ -1,4 +1,4 @@
-package pl.coderslab.warsztat6.app;
+package pl.twitter.app;
 import javax.servlet.Filter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

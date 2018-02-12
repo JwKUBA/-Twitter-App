@@ -1,4 +1,4 @@
-package pl.coderslab.warsztat6.app;
+package pl.twitter.app;
 
 import java.util.Locale;
 
@@ -26,8 +26,8 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
-@ComponentScan(basePackages = { "pl.coderslab" })
-@EnableJpaRepositories(basePackages = { "pl.coderslab" })
+@ComponentScan(basePackages = { "pl.twitter" })
+@EnableJpaRepositories(basePackages = { "pl.twitter" })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean(name = "localeResolver")
