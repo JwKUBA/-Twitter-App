@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -23,24 +22,16 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+//import pl.cms.converter.ArticleConverter;
+//import pl.cms.converter.AuthorConverter;
+//import pl.cms.converter.CategoryConverter;
+
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = { "pl.twitter" })
 @EnableJpaRepositories(basePackages = { "pl.twitter" })
 public class AppConfig extends WebMvcConfigurerAdapter {
-
-	@Bean(name = "localeResolver")
-	public LocaleContextResolver getLocaleContextResolver() {
-		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-		localeResolver.setDefaultLocale(new Locale("pl", "PL"));
-		return localeResolver;
-	}
-
-	@Bean
-	public Validator validator() {
-		return new LocalValidatorFactoryBean();
-	}
 
 	@Bean
 	public ViewResolver viewResolver() {
@@ -51,10 +42,15 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
+
 	@Bean
 	public LocalEntityManagerFactoryBean entityManagerFactory() {
 		LocalEntityManagerFactoryBean emfb = new LocalEntityManagerFactoryBean();
-		emfb.setPersistenceUnitName("warsztat6");
+		emfb.setPersistenceUnitName("twitter");
 		return emfb;
 	}
 
@@ -64,19 +60,39 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return tm;
 	}
 
+//	@Override
+//	public void addFormatters(FormatterRegistry registry) {
+//		registry.addConverter(getAuthorConverter());
+//		registry.addConverter(getCategoryConverter());
+//		
+//	}
+//
 //	@Bean
-//	public UserConverter getUserConverter() {
-//		return new UserConverter();
+//	public AuthorConverter getAuthorConverter() {
+//		return new AuthorConverter();
+//	}
+//	
+//
+//	@Bean
+//	public ArticleConverter getArticleConverter() {
+//		return new ArticleConverter();
+//	}
+//
+//	@Bean
+//	public CategoryConverter getCategoryConverter() {
+//		return new CategoryConverter();
 //	}
 
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		
+	@Bean(name = "localeResolver")
+	public LocaleContextResolver getLocaleContextResolver() {
+		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+		localeResolver.setDefaultLocale(new Locale("pl", "PL"));
+		return localeResolver;
 	}
+	
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
+	@Bean
+	public Validator validator() {
+		return new LocalValidatorFactoryBean();
 	}
-
 }
