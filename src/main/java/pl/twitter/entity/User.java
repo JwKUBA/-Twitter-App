@@ -1,10 +1,14 @@
 package pl.twitter.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -35,7 +39,26 @@ public class User {
 	@Email
 	@Column(unique = true)
 	private String email;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List <Tweet> tweet;
 
+
+	
+	public User() {
+		super();
+		
+	}
+	
+	
+	public User(String username, String password, boolean enabled, String email, List<Tweet> tweet) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+		this.email = email;
+		this.tweet = tweet;
+	}
 
 	public long getId() {
 		return id;

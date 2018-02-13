@@ -11,7 +11,11 @@
  			<a href="login">Login</a>
  		</c:when>
  		<c:otherwise>
- 			<a href="logout">Logout</a>
+ 			<a href="/Twitter/">Main page</a>
+			<a href="/Twitter/user">Your tweets</a>
+			<a href="/Twitter/message">Messages</a>
+			<a href="/Twitter/change">Edit profile</a>
+			<a href="/Twitter/logout">Logout</a>
  		</c:otherwise>
  	</c:choose>
  </p> 
