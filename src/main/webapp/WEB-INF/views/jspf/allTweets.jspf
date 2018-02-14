@@ -1,7 +1,29 @@
-<<?xml version="1.0" encoding="UTF-8" ?>
- <%@ page language="java" contentType="text/html; charset=UTF-8"
- 	pageEncoding="UTF-8" isELIgnored="false"%>
+<?xml version="1.0" encoding="UTF-8" ?>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isELIgnored="false"%>
+    <%@	taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+    <%@ page session="true" %>
  
- <%@	taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <%@	page session="true"%>
+ <h2>Tweets</h2>
+ <c:choose>
  
+		<c:when test ="${sessionScope.user ==null }">
+		<h2>Log in to see tweets</h2>
+		</c:when>
+		
+		<c:otherwise>
+		<c:forEach items="${availableTweets}" var="tweet"> 
+		<c:set var = "full" value = "${tweet.text}"></c:set>
+		<c:set var = "part" value = "${fn:substring(full,0,35)}"></c:set>
+		<p>${part} <a href="/Twitter/tweet/${tweet.id}">(tweet details and comments)</a></p>
+		
+		<p>created ${tweet.created} by ${tweet.user.username}
+		
+		</c:forEach>
+		
+		
+		
+		</c:otherwise>
+		 
+ </c:choose>

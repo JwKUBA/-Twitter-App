@@ -13,7 +13,7 @@
 <%@ include file="jspf/main_menu.jspf" %>
 ${msg}
 <%@ include file="jspf/addTweet.jspf" %>
-
+<%@ include file="jspf/allTweets.jspf" %>
 <%@ include file="jspf/footer.jspf" %>
 </body>
 </html>
