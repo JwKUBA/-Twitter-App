@@ -14,7 +14,7 @@ import pl.twitter.entity.Message;
 	@GetMapping("")
 	public String massageList(Model m) {
 		m.addAttribute("message", new Message());
-		return null;
+		return "message_list";
 	}
 	
 	

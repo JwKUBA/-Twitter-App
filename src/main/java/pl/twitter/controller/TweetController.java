@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.mysql.fabric.xmlrpc.base.Data;
+
 
 import pl.twitter.bean.SessionManager;
 import pl.twitter.entity.Comment;
@@ -49,7 +49,7 @@ public class TweetController {
 	
 	@GetMapping("/{id}")
 	public String singleTweet(Model m ,@PathVariable Long id) {
-		Tweet tweet = this.tweetRepository.findOne(id);//znajduje tweet uzytkowika
+		Tweet tweet = this.tweetRepository.findOne(id);//znajduje tweet uzytkownika
 		List<Comment> comments = this.commentRepository.findByTweetIdOrderByCreatedDesc(id);//wszytkie komentarze 
 		m.addAttribute("tweet", tweet);
 		m.addAttribute("comments", comments);

@@ -30,11 +30,12 @@ public class UserViewController {
 		return "/user";
 	}
 	
+
+	
 	@ModelAttribute("allTweets")
 	public List<Tweet> allTweets() {
 		HttpSession s = SessionManager.session();
 		User u =(User)s.getAttribute("user");//bo wyswietlam tweety usera z sesji
-		tweetRepository.findAllByUserIdOrderByCreatedDesc(u.getId());
 		return tweetRepository.findAllByUserIdOrderByCreatedDesc(u.getId());
 		
 		
