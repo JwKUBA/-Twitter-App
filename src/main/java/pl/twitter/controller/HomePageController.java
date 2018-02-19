@@ -39,7 +39,7 @@ public class HomePageController {
 		List<Tweet> usersTweets = this.tweetRepository.findAllByUserIdOrderByCreatedDesc(userId);
 		m.addAttribute("usersTweets", usersTweets);
 		m.addAttribute("recieverId", userId);
-		return "users";
+		return "otherUsers";
 	
 
 		

@@ -17,6 +17,7 @@
 		<c:set var = "full" value = "${tweet.text}"></c:set>
 		<c:set var = "part" value = "${fn:substring(full,0,35)}"></c:set>
 		<p>${part} <a href="/Twitter/tweet/${tweet.id}">(tweet details and comments)</a></p>
+		<a href="/Twitter/usersTweets/${tweet.user.id}">(user tweets)</a></p>
 		
 		<p>created ${tweet.created} by ${tweet.user.username}
 		
