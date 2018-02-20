@@ -1,6 +1,7 @@
 package pl.twitter.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -56,5 +57,53 @@ import pl.twitter.repository.UserRepository;
 		return "redirect:/message";	
 		
 	}
+	
+	@GetMapping("/details/{id}")
+	public String messageDetails(Model m ,@PathVariable long id) {
+	Message message = this.messageRepository.findOne(id);
+	message.setChecked(1);
+	this.messageRepository.save(message);
+	m.addAttribute("message", message);
+	return "read_message";
+	
+
+	
+	}
+	
+
+	@ModelAttribute("readMessages")//przeczytne
+	public List <Message> getMessage(){
+		HttpSession s = SessionManager.session();
+		User u = (User) s.getAttribute("user");
+		return this.messageRepository.findByRecieverAndCheckedLikeOrderByCreatedDesc(u,1);
+	
+}
+	
+	@ModelAttribute("unreadMessages")//nieprzeczytane
+	public List <Message> getUnreadMessage(){
+		HttpSession s = SessionManager.session();
+		User u = (User) s.getAttribute("user");
+		return this.messageRepository.findByRecieverAndCheckedLikeOrderByCreatedDesc(u,0);
+	
+}
+	
+	
+	@ModelAttribute("sentMessages")//wysłane
+	public List <Message> sentMessage(){
+		HttpSession s = SessionManager.session();
+		User u = (User) s.getAttribute("user");
+		return this.messageRepository.findBySenderOrderByCreatedDesc(u);
+	
+}
+	
+	@ModelAttribute("userMessages")//wszystkie
+	public List <Message> userMessages(){
+		HttpSession s = SessionManager.session();
+		User u = (User) s.getAttribute("user");
+		return this.messageRepository.findByRecieverOrderByCreatedDesc(u);
+	
+	
+	}
+	
 
 }
