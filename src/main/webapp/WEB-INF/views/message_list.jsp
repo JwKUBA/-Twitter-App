@@ -36,7 +36,7 @@
 <c:forEach items="${sentMessages}" var="message">
 <c:set var = "full" value = "${message.text}"></c:set>
 <c:set var = "part" value = "${fn:substring(full, 0, 30) }"></c:set>
-<p>${part }... <br /> message to: ${message.reciever.username}, sent: ${message.created} <a href="message/details/${message.id}">read message</a></p>
+<p>${part }... <br /> message to: ${message.reciever.username},</br> sent: ${message.created}</br> <a href="message/details/${message.id}">read message</a></p>
 </c:forEach>
 
 <%@ include file = "jspf/footer.jspf" %>

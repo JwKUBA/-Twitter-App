@@ -42,16 +42,32 @@ import pl.twitter.repository.UserRepository;
 		return "message_list";
 	}
 	
-	@PostMapping("/add/{recieverId")
-	public String addPost(@Valid @ModelAttribute Message message , @PathVariable long id, BindingResult bindingResult) {
+	@GetMapping("/{id}")
+	public String message(Model m, @PathVariable long id) {
+		HttpSession s = SessionManager.session();
+		if (s != null) {
+			User sender = (User) s.getAttribute("user");
+			if (sender != null && sender.getId() == id) {
+				return "redirect:/message";
+			}
+		}
+		m.addAttribute("message", new Message());
+		m.addAttribute("recieverId", id);
+		return "send_message";
+	}
+	
+	
+	
+	@PostMapping("/add/{recieverId}")
+	public String addPost(@Valid @ModelAttribute Message message , @PathVariable long recieverId, BindingResult bindingResult) {
 		if(bindingResult.hasErrors() ) {
-			return "redirect:/message/" + id;
+			return "redirect:/message/" + recieverId;
 		}
 		HttpSession s = SessionManager.session();
-		User sender = (User) s.getAttribute("user");
-		message.setSender(sender);
-		User reciever = this.userRepository.findOne(id);
-		message.setReciever(reciever);
+		User sender = (User) s.getAttribute("user");//pobieramy z sesji usera
+		message.setSender(sender);// ustawiamy go jako wysyłajacego
+		User reciever = this.userRepository.findOne(recieverId);//znajdujemy w bazie danych po id usera odbiorce
+		message.setReciever(reciever);//zapisujemy do encji message
 		message.setCreated(new Date());
 		this.messageRepository.save(message);
 		return "redirect:/message";	
