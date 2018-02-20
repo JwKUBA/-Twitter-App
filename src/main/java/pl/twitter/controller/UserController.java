@@ -67,8 +67,29 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("change")
+	public String change (Model m) {
+		HttpSession s = SessionManager.session();
+		User u = (User) s.getAttribute("user");
+		m.addAttribute("user", u);
+		return "change";
+	}
 	
 	
+	@PostMapping("change")
+	public String change (@Valid @ModelAttribute User user,BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors()) {
+			return "redirect:/register";
+		}
+		
+		HttpSession s = SessionManager.session();
+		User u = (User) s.getAttribute("user");
+		user.setId(u.getId());
+		this.userRepository.save(user);
+		return "redirect:/";
+		
+	}
 	
 	
 	
