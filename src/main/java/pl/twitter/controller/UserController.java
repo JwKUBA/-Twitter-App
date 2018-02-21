@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.twitter.bean.LoginData;
@@ -89,6 +90,26 @@ public class UserController {
 		this.userRepository.save(user);
 		return "redirect:/";
 		
+	}
+	
+	@GetMapping("/delete")
+	public String delete (Model m) {
+		HttpSession s = SessionManager.session();
+		User u = (User) s.getAttribute("user");
+		m.addAttribute("user", u);
+		return "delete";
+	}
+	
+	@GetMapping("/delete/{dec}")
+	public String deletePost(@PathVariable int dec) {
+		if(dec==1) {
+			HttpSession s = SessionManager.session();
+			User u =(User) s.getAttribute("user");
+			s.invalidate();
+			this.userRepository.delete(u);
+			return "redirect:/login";
+		}
+		return "redirect:/";
 	}
 	
 	

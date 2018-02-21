@@ -23,7 +23,6 @@ public class Tweet {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull
 	private long id;
 	
 	@ManyToOne
@@ -44,7 +43,7 @@ public class Tweet {
 		this.comment = comment;
 	}
 
-	@OneToMany(mappedBy = "tweet", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "tweet", fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
 	private List<Comment> comment = new ArrayList<>();
 
 	public Tweet() {

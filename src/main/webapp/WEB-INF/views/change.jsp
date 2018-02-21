@@ -9,7 +9,7 @@
 
 
 
-<title>Warsztat 6</title>
+<title>Twitter</title>
 </head>
 <body>
 <%@ include file = "jspf/header.jspf" %>
@@ -28,7 +28,7 @@
 				<p>Password<form:password path="password" /><form:errors path="password"></form:errors></p>
 			<p><input type="submit" /></p>
 			</form:form>
-			<a href="/warsztat6/delete">Delete your account</a></p>
+			<a href="/Twitter/delete">Delete your account</a></p>
 		</c:otherwise>
 
 	</c:choose>
